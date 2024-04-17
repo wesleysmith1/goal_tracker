@@ -1,9 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import store from './store/store'; // Adjust the path as necessary
+import store from './store/store';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import About from './pages/About'; // Assume we have an About component
-import GoalComponent from './components/GoalComponent'; // Adjust the path as necessary
+import { AppBar, Toolbar, Button, Typography, Container, CssBaseline } from '@mui/material';
+import About from './pages/About';
 import AddGoal from './pages/AddGoal';
 import Goals from './pages/Goals';
 
@@ -11,27 +11,24 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/about">About</Link>
-              </li>
-              <li>
-                <Link to="/goals">Goals</Link>
-              </li>
-            </ul>
-          </nav>
-
+        <CssBaseline />
+        <AppBar position="static" color="primary" style={{ marginBottom: '20px' }}>
+          <Toolbar>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              My Application
+            </Typography>
+            <Button color="inherit" component={Link} to="/">Home</Button>
+            <Button color="inherit" component={Link} to="/about">About</Button>
+            <Button color="inherit" component={Link} to="/goals">Goals</Button>
+          </Toolbar>
+        </AppBar>
+        <Container maxWidth="lg">
           <Routes>
             <Route path="/about" element={<About />} />
             <Route path="/" element={<AddGoal />} />
             <Route path="/goals" element={<Goals />} />
           </Routes>
-        </div>
+        </Container>
       </Router>
     </Provider>
   );
