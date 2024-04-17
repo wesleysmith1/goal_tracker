@@ -43,7 +43,7 @@ export const updateGoalAPI = createAsyncThunk(
     'goals/updateGoal',
     async ({ goalId, updates }, { rejectWithValue }) => {
         try {
-            const response = await fetch(`/api/goals/${goalId}`, {
+            const response = await fetch(`/api/goals/${goalId}/`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
