@@ -1,9 +1,10 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import store from './store'; // Adjust the path as necessary
+import store from './store/store'; // Adjust the path as necessary
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import TextInputWithSubmit from './components/TextInputWithSubmit'; // Adjust the path as necessary
 import About from './pages/About'; // Assume we have an About component
+import CategoryComponent from './components/CategoryComponent'; // Adjust the path as necessary
+import AddFood from './pages/AddFood';
 
 function App() {
   return (
@@ -23,8 +24,9 @@ function App() {
 
           <Routes>
             <Route path="/about" element={<About />} />
-            <Route path="/" element={<TextInputWithSubmit />} />
+            <Route path="/" element={<AddFood />} />
           </Routes>
+          <CategoryComponent />
         </div>
       </Router>
     </Provider>

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ListItem from './ListItem'; // Adjust the path as necessary
-import { addInput, editInput, deleteInput } from './actions'; // Adjust the path as necessary
+import { addInput, editInput, deleteInput } from '../reducers/inputsSlice'; // Adjust the path as necessary
 
 function TextInputWithSubmit() {
   const [inputValue, setInputValue] = useState('');
-  const inputsList = useSelector(state => state.inputsList); // Access Redux state
+  const inputsList = useSelector(state => state.inputs.inputsList);
   const dispatch = useDispatch(); // To dispatch actions
 
   const handleInputChange = (event) => {
@@ -23,6 +23,7 @@ function TextInputWithSubmit() {
 
   return (
     <div>
+      <h1>Text input with submit</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -37,7 +38,8 @@ function TextInputWithSubmit() {
           <li key={index}>
             <ListItem
               item={input}
-              onEdit={(newValue) => dispatch(editInput(index, newValue))}
+              index={index}  // Make sure to pass the index as well
+              onEdit={(newValue) => dispatch(editInput({index, newValue}))}  // Passing an object with index and newValue
               onDelete={() => dispatch(deleteInput(index))}
             />
           </li>
