@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { TextField, Button, Card, CardActions, CardContent, IconButton } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function ListItem({ item, index, onEdit, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -14,20 +18,37 @@ function ListItem({ item, index, onEdit, onDelete }) {
   };
 
   return (
-    <div>
+    <Card variant="outlined" style={{ margin: '10px' }}>
       {isEditing ? (
-        <div>
-          <input type="text" value={editValue} onChange={handleEditChange} />
-          <button onClick={handleSave}>Save</button>
-        </div>
+        <CardContent>
+          <TextField
+            fullwidth="true"
+            variant="outlined"
+            value={editValue}
+            onChange={handleEditChange}
+            size="small"
+          />
+        </CardContent>
       ) : (
-        <div>
+        <CardContent>
           <span>{item}</span>
-          <button onClick={() => setIsEditing(true)}>Edit</button>
-        </div>
+        </CardContent>
       )}
-      <button onClick={onDelete}>Delete</button>
-    </div>
+      <CardActions>
+        {isEditing ? (
+          <IconButton onClick={handleSave} aria-label="save">
+            <SaveIcon />
+          </IconButton>
+        ) : (
+          <IconButton onClick={() => setIsEditing(true)} aria-label="edit">
+            <EditIcon />
+          </IconButton>
+        )}
+        <IconButton onClick={onDelete} aria-label="delete">
+          <DeleteIcon />
+        </IconButton>
+      </CardActions>
+    </Card>
   );
 }
 
