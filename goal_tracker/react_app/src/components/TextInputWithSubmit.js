@@ -1,46 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ListItem from './ListItem'; // Adjust the path as necessary
-import { addInput, editInput, deleteInput } from '../reducers/inputsSlice'; // Adjust the path as necessary
+import { addGoal, updateGoalAPI, deleteGoal, fetchGoals } from '../reducers/goalsSlice'; // Ensure imports are correct
 
 function TextInputWithSubmit() {
-  const [inputValue, setInputValue] = useState('');
-  const inputsList = useSelector(state => state.inputs.inputsList);
-  const dispatch = useDispatch(); // To dispatch actions
+  const [goalValue, setGoalValue] = useState(''); // State for the input field value
+  const goalsList = useSelector(state => state.goals.goalsList); // Accessing goals list from the Redux store
+  const dispatch = useDispatch(); // Hook to dispatch actions
+
+  useEffect(() => {
+    dispatch(fetchGoals()); // Fetch goals when the component mounts
+  }, [dispatch]);
 
   const handleInputChange = (event) => {
-    setInputValue(event.target.value);
+    setGoalValue(event.target.value); // Handle input changes
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!inputValue.trim()) return;
-    dispatch(addInput(inputValue)); // Dispatch an action to add input
-    setInputValue('');
+    if (!goalValue.trim()) return; // Don't submit if empty or only whitespace
+    dispatch(addGoal({ title: goalValue })); // Dispatch action to add a new goal
+    setGoalValue(''); // Clear the input field after submission
   };
-
-  // Note: The `ListItem` component should also be adjusted to handle Redux actions if it's not already.
 
   return (
     <div>
-      <h1>Text input with submit</h1>
+      <h1>Add a New Goal</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          value={inputValue}
+          value={goalValue}
           onChange={handleInputChange}
-          placeholder="Enter food here..."
+          placeholder="Enter goal description..."
         />
-        <button type="submit">Submit</button>
+        <button type="submit">Add Goal</button>
       </form>
       <ul>
-        {inputsList.map((input, index) => (
-          <li key={index}>
+        {goalsList.map((goal) => (
+          <li key={goal.id}>
             <ListItem
-              item={input}
-              index={index}  // Make sure to pass the index as well
-              onEdit={(newValue) => dispatch(editInput({index, newValue}))}  // Passing an object with index and newValue
-              onDelete={() => dispatch(deleteInput(index))}
+              item={goal.title} // Assuming the goal object has a 'title' attribute
+              onEdit={(newValue) => dispatch(updateGoalAPI({ goalId: goal.id, updates: { title: newValue } }))}
+              onDelete={() => dispatch(deleteGoal(goal.id))}
             />
           </li>
         ))}

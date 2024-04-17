@@ -3,8 +3,9 @@ import { Provider } from 'react-redux';
 import store from './store/store'; // Adjust the path as necessary
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import About from './pages/About'; // Assume we have an About component
-import CategoryComponent from './components/CategoryComponent'; // Adjust the path as necessary
-import AddFood from './pages/AddFood';
+import GoalComponent from './components/GoalComponent'; // Adjust the path as necessary
+import AddGoal from './pages/AddGoal';
+import Goals from './pages/Goals';
 
 function App() {
   return (
@@ -19,14 +20,17 @@ function App() {
               <li>
                 <Link to="/about">About</Link>
               </li>
+              <li>
+                <Link to="/goals">Goals</Link>
+              </li>
             </ul>
           </nav>
 
           <Routes>
             <Route path="/about" element={<About />} />
-            <Route path="/" element={<AddFood />} />
+            <Route path="/" element={<AddGoal />} />
+            <Route path="/goals" element={<Goals />} />
           </Routes>
-          <CategoryComponent />
         </div>
       </Router>
     </Provider>

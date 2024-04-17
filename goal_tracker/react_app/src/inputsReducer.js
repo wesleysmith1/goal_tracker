@@ -1,31 +1,31 @@
 const initialState = {
-    inputsList: [],
+    goalsList: [],
   };
   
   // Reducer function
-  function inputsReducer(state = initialState, action) {
+  function goalsReducer(state = initialState, action) {
     switch (action.type) {
-      case 'ADD_INPUT':
+      case 'ADD_GOAL':
         return {
           ...state,
-          inputsList: [...state.inputsList, action.payload],
+          goalsList: [...state.goalsList, action.payload],
         };
-      case 'DELETE_INPUT':
+      case 'DELETE_GOAL':
         return {
           ...state,
-          inputsList: state.inputsList.filter((_, index) => index !== action.payload),
+          goalsList: state.goalsList.filter((_, index) => index !== action.payload),
         };
-      case 'EDIT_INPUT':
-        const updatedInputsList = [...state.inputsList];
-        updatedInputsList[action.payload.index] = action.payload.value;
+      case 'EDIT_GOAL':
+        const updatedGoalsList = [...state.goalsList];
+        updatedGoalsList[action.payload.index] = action.payload.value;
         return {
           ...state,
-          inputsList: updatedInputsList,
+          goalsList: updatedGoalsList,
         };
       default:
         return state;
     }
   }
   
-  export default inputsReducer;
+  export default goalsReducer;
   

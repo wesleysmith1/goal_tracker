@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import inputsReducer from '../reducers/inputsSlice';
+import goalsReducer from '../reducers/goalsSlice';
 // Other reducers
 
 const store = configureStore({
   reducer: {
-    inputs: inputsReducer,
+    goals: goalsReducer,
     // Add other slices as needed
   },
 });
