@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import Category
+from .models import Goal
 
-class CategorySerializer(serializers.ModelSerializer):
+class GoalSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Category
-        fields = ['title']
+        model = Goal
+        fields = ['id', 'title']

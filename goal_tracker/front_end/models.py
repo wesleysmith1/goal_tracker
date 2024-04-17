@@ -1,5 +1,5 @@
 from django.db import models
 
 # Create your models here.
-class Category(models.Model):
+class Goal(models.Model):
     title = models.CharField(max_length=200)
