@@ -6,6 +6,7 @@ import { AppBar, Toolbar, Button, Typography, Container, CssBaseline } from '@mu
 import About from './pages/About';
 import AddGoal from './pages/AddGoal';
 import Goals from './pages/Goals';
+import ActualAbout from './pages/ActualAbout';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Button color="inherit" component={Link} to="/">Home</Button>
             <Button color="inherit" component={Link} to="/about">About</Button>
             <Button color="inherit" component={Link} to="/goals">Goals</Button>
+            <Button color="inherit" component={Link} to="/actualabout">Actual About</Button>
           </Toolbar>
         </AppBar>
         <Container maxWidth="lg">
@@ -27,6 +29,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/" element={<AddGoal />} />
             <Route path="/goals" element={<Goals />} />
+            <Route path="/actualabout" element={<ActualAbout />} />
           </Routes>
         </Container>
       </Router>
