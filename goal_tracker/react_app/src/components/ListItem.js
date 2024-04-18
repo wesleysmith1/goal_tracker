@@ -4,16 +4,20 @@ import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-function ListItem({ item, index, onEdit, onDelete }) {
+function ListItem({ item, onEdit, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState(item);
+  const [editValues, setEditValues] = useState({
+    title: item.title,
+    duration: item.duration,
+    notes: item.notes
+  });
 
-  const handleEditChange = (event) => {
-    setEditValue(event.target.value);
+  const handleEditChange = (field, value) => {
+    setEditValues(prev => ({ ...prev, [field]: value }));
   };
 
   const handleSave = () => {
-    onEdit(editValue); // Dispatch the update action
+    onEdit(editValues); // Dispatch the update action
     setIsEditing(false); // Exit editing mode
   };
 
@@ -22,16 +26,38 @@ function ListItem({ item, index, onEdit, onDelete }) {
       {isEditing ? (
         <CardContent>
           <TextField
-            fullwidth="true"
+            label="Title"
+            fullWidth
             variant="outlined"
-            value={editValue}
-            onChange={handleEditChange}
-            size="small"
+            value={editValues.title}
+            onChange={(e) => handleEditChange('title', e.target.value)}
+            margin="normal"
+          />
+          <TextField
+            label="Duration (minutes)"
+            fullWidth
+            type="number"
+            variant="outlined"
+            value={editValues.duration}
+            onChange={(e) => handleEditChange('duration', e.target.value)}
+            margin="normal"
+          />
+          <TextField
+            label="Notes"
+            fullWidth
+            multiline
+            rows={3}
+            variant="outlined"
+            value={editValues.notes}
+            onChange={(e) => handleEditChange('notes', e.target.value)}
+            margin="normal"
           />
         </CardContent>
       ) : (
         <CardContent>
-          <span>{item}</span>
+          <h3>{item.title}</h3>
+          <p>Duration: {item.duration} minutes</p>
+          <p>Notes: {item.notes}</p>
         </CardContent>
       )}
       <CardActions>
@@ -44,7 +70,7 @@ function ListItem({ item, index, onEdit, onDelete }) {
             <EditIcon />
           </IconButton>
         )}
-        <IconButton onClick={onDelete} aria-label="delete">
+        <IconButton onClick={() => onDelete(item.id)} aria-label="delete">
           <DeleteIcon />
         </IconButton>
       </CardActions>

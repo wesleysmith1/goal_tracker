@@ -1,10 +1,12 @@
 import React from 'react';
-import TextInputWithSubmit from '../components/TextInputWithSubmit';
+import MeditationsList from '../components/MeditationsList';
+import MeditationForm from '../components/MeditationForm';
 
 function AddGoal() {
   return (
     <div>
-      <TextInputWithSubmit />
+      <MeditationForm />
+      <MeditationsList />
     </div>
   );
 }
