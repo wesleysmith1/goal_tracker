@@ -5,6 +5,7 @@ import MeditationStreakCalc from '../components/MeditationStreakCalc';
 import AvgMoodCalc from '../components/AvgMoodCalc'; 
 import LongestMeditationStreak from '../components/LongestStreakCalc';
 import AverageMeditationTime from '../components/AvgMeditationTimeCalc';
+import MeditationHeatmap from '../components/HeatMap';
 
 
 
@@ -25,6 +26,8 @@ function Metrics() {
       <LongestMeditationStreak />
       
       <AvgMoodCalc />
+      
+      <MeditationHeatmap />
     </div>
   );
 }
