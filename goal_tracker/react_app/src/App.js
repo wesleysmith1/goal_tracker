@@ -21,7 +21,7 @@ function App() {
             <Button color="inherit" component={Link} to="/">Home</Button>
             <Button color="inherit" component={Link} to="/about">About</Button>
             <Button color="inherit" component={Link} to="/goals">Goals</Button>
-            <Button color="inherit" component={Link} to="/actualabout">Actual About</Button>
+            <Button color="inherit" component={Link} to="/actualabout">About Us</Button>
           </Toolbar>
         </AppBar>
         <Container maxWidth="lg">
