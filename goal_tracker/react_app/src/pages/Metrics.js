@@ -1,6 +1,11 @@
 import React from 'react';
 import SimpleLineChart from '../components/SimpleLineChart'; 
 import MeditationMinutesCalc from '../components/MeditationMinutesCalc'; 
+import MeditationStreakCalc from '../components/MeditationStreakCalc'; 
+import AvgMoodCalc from '../components/AvgMoodCalc'; 
+import LongestMeditationStreak from '../components/LongestStreakCalc';
+import AverageMeditationTime from '../components/AvgMeditationTimeCalc';
+
 
 
 function Metrics() {
@@ -13,7 +18,13 @@ function Metrics() {
       
       <MeditationMinutesCalc />
       
+      <AverageMeditationTime />
       
+      <MeditationStreakCalc />
+      
+      <LongestMeditationStreak />
+      
+      <AvgMoodCalc />
     </div>
   );
 }

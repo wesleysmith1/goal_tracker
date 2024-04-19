@@ -2,24 +2,7 @@ import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Paper, Typography } from '@mui/material';
 import moment from 'moment'; // Import moment for date formatting
-
-const data = [
-  { timestamp: '2023-04-01T12:00:00Z', minutes: 30, mood: 4 },
-  { timestamp: '2023-04-02T12:00:00Z', minutes: 45, mood: 3 },
-  { timestamp: '2023-04-03T12:00:00Z', minutes: 800, mood: 5 },
-  { timestamp: '2023-04-04T12:00:00Z', minutes: 60, mood: 2 },
-  { timestamp: '2023-04-05T12:00:00Z', minutes: 35, mood: 4 },
-  { timestamp: '2023-04-06T12:00:00Z', minutes: 50, mood: 5 },
-  { timestamp: '2023-04-07T12:00:00Z', minutes: 40, mood: 3 },
-];
-
-const emojiKey = {
-  1: '😟', // very unsatisfied
-  2: '😕', // unsatisfied
-  3: '😐', // neutral
-  4: '😊', // satisfied
-  5: '😁'  // very satisfied
-};
+import { data, emojiKey } from './DummyData'; // Import the data
 
 const CustomDot = (props) => {
   const { payload, cx, cy } = props;
