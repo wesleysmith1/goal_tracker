@@ -2,7 +2,7 @@ import React from 'react';
 import meditationImage from '../images/meditation1.png';
 
 
-function ActualAbout() {
+function AboutUs() {
   return (
     <div>
       <h2>About Meditation Zone</h2>
@@ -12,4 +12,4 @@ function ActualAbout() {
   );
 }
 
-export default ActualAbout;
+export default AboutUs;
