@@ -2,13 +2,13 @@ import React from 'react';
 import { Paper, Typography } from '@mui/material';
 
 const data = [
-  { day: 'Day 1', minutes: 30, rating: 4 },
-  { day: 'Day 2', minutes: 45, rating: 3 },
-  { day: 'Day 3', minutes: 20, rating: 5 },
-  { day: 'Day 4', minutes: 60, rating: 2 },
-  { day: 'Day 5', minutes: 35, rating: 4 },
-  { day: 'Day 6', minutes: 50, rating: 5 },
-  { day: 'Day 7', minutes: 40, rating: 3 },
+  { timestamp: '2023-04-01T12:00:00Z', minutes: 30, rating: 4 },
+  { timestamp: '2023-04-02T12:00:00Z', minutes: 45, rating: 3 },
+  { timestamp: '2023-04-03T12:00:00Z', minutes: 540, rating: 5 },
+  { timestamp: '2023-04-04T12:00:00Z', minutes: 60, rating: 2 },
+  { timestamp: '2023-04-05T12:00:00Z', minutes: 35, rating: 4 },
+  { timestamp: '2023-04-06T12:00:00Z', minutes: 50, rating: 5 },
+  { timestamp: '2023-04-07T12:00:00Z', minutes: 40, rating: 3 },
 ];
 
 // Component to calculate total minutes meditated

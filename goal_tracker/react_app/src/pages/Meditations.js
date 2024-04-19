@@ -1,16 +1,15 @@
 import React from 'react';
 import MeditationsHistory from '../components/MeditationsHistory'; // Adjust the path as necessary
-import SimpleLineChart from '../components/SimpleLineChart'; 
+import MeditationMinutesCalc from '../components/MeditationMinutesCalc'; 
 
 
-function Goals() {
+function Meditations() {
   return (
     <div>
-      <h2>Your Goals</h2>
       <MeditationsHistory />
-      <SimpleLineChart />
+      <MeditationMinutesCalc />
     </div>
   );
 }
 
-export default Goals;
+export default Meditations;

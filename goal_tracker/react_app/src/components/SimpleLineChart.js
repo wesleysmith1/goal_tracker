@@ -1,15 +1,16 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Paper, Typography } from '@mui/material';
+import moment from 'moment'; // Import moment for date formatting
 
 const data = [
-  { day: 'Day 1', minutes: 30, mood: 4 },
-  { day: 'Day 2', minutes: 45, mood: 3 },
-  { day: 'Day 3', minutes: 20, mood: 5 },
-  { day: 'Day 4', minutes: 60, mood: 2 },
-  { day: 'Day 5', minutes: 35, mood: 4 },
-  { day: 'Day 6', minutes: 50, mood: 5 },
-  { day: 'Day 7', minutes: 40, mood: 3 },
+  { timestamp: '2023-04-01T12:00:00Z', minutes: 30, mood: 4 },
+  { timestamp: '2023-04-02T12:00:00Z', minutes: 45, mood: 3 },
+  { timestamp: '2023-04-03T12:00:00Z', minutes: 800, mood: 5 },
+  { timestamp: '2023-04-04T12:00:00Z', minutes: 60, mood: 2 },
+  { timestamp: '2023-04-05T12:00:00Z', minutes: 35, mood: 4 },
+  { timestamp: '2023-04-06T12:00:00Z', minutes: 50, mood: 5 },
+  { timestamp: '2023-04-07T12:00:00Z', minutes: 40, mood: 3 },
 ];
 
 const emojiKey = {
@@ -23,7 +24,7 @@ const emojiKey = {
 const CustomDot = (props) => {
   const { payload, cx, cy } = props;
   return (
-    <text x={cx} y={cy} dy={-10} textAnchor="middle" style={{ fontSize: '20px' }}>
+    <text x={cx} y={cy} dy={0} textAnchor="middle" style={{ fontSize: '20px' }}>
       {emojiKey[payload.mood]}
     </text>
   );
@@ -51,10 +52,10 @@ const SimpleLineChart = () => {
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="day" />
+          <XAxis dataKey="timestamp" tickFormatter={(unixTime) => moment(unixTime).format('MMM DD')} />
           <YAxis yAxisId="left" />
           <YAxis yAxisId="right" orientation="right" />
-          <Tooltip />
+          <Tooltip formatter={(value, name) => [value, name === 'mood' ? 'Mood' : 'Minutes']} labelFormatter={(label) => moment(label).format('MMMM DD, YYYY')} />
           <Legend />
           <Line yAxisId="left" type="monotone" dataKey="minutes" stroke="#8884D8" activeDot={{ r: 8 }} />
           <Line yAxisId="right" type="monotone" dataKey="mood" stroke="#82CA9D" dot={<CustomDot />} />

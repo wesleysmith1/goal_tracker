@@ -2,7 +2,7 @@ import React from 'react';
 import MeditationsList from '../components/MeditationsList';
 import MeditationForm from '../components/MeditationForm';
 
-function AddGoal() {
+function AddMeditation() {
   return (
     <div>
       <MeditationForm />
@@ -11,4 +11,4 @@ function AddGoal() {
   );
 }
 
-export default AddGoal;
+export default AddMeditation;
