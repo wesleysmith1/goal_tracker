@@ -6,7 +6,6 @@ function AddMeditation({ onClose }) {
   return (
     <div>
       <MeditationForm onClose={onClose} />
-      <MeditationsList />
     </div>
   );
 }

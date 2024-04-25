@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchMeditations } from '../reducers/meditationsSlice';
 
 const MeditationsHistory = () => {
-    const [meditations, setMeditations] = useState([]);
+    const dispatch = useDispatch();
+    const meditations = useSelector(state => state.meditations.meditationsList);
+    const loading = useSelector(state => state.meditations.loading);
+    const error = useSelector(state => state.meditations.error);
 
     useEffect(() => {
-        fetch('api/meditations/') // Adjust the URL based on your Django server's URL
-          .then(response => response.json())
-          .then(data => {
-              setMeditations(data);
-          })
-          .catch(error => console.error('Error fetching data: ', error));
-    }, []);
+        dispatch(fetchMeditations());
+    }, [dispatch]);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
 
     return (
         <div>
