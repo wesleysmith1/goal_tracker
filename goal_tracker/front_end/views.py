@@ -10,8 +10,8 @@ from rest_framework.response import Response
 from rest_framework import viewsets, status
 from django.utils.timezone import now
 
-from .models import Goal
-from .serializers import GoalSerializer
+from .models import Meditation
+from .serializers import MeditationSerializer
 
 # Create your views here.
 def serve_react(request, path='', document_root=None):
@@ -37,48 +37,15 @@ def serve_react(request, path='', document_root=None):
             return Http404("index.html not found.")
 
         return static_serve(request, "index.html", document_root=document_root)
-    
 
-# class GoalViewSet(viewsets.ModelViewSet):
-#     queryset = Goal.objects.all()
-#     serializer_class = GoalSerializer
-
-#     def get_queryset(self):
-#         print(f"get query set called!!!")
-#         # Create a mock queryset using the model
-#         # In a real application, you'd return actual database records
-#         entry1 = Goal(id=1, title='Entry 1')
-#         entry2 = Goal(id=2, title='Entry 2')
-#         return [entry1, entry2]  # Return a list of model instances
-
-#     # def create(self, request, *args, **kwargs):
-#     #     print(f"You tried to add '{request.data}'")
-#     #     # You can manually create a Goal instance here if needed
-#     #     return Response({"message": "Goal added", "data": request.data}, status=status.HTTP_201_CREATED)
-
-#     # def update(self, request, pk=None, *args, **kwargs):
-#     #     print(f"You tried to update entry {pk} with '{request.data}'")
-#     #     # You can manually update a Goal instance here if needed
-#     #     return Response({"message": "Goal updated", "data": request.data}, status=status.HTTP_200_OK)
-    
-#     def create(self, request, *args, **kwargs):
-#         print(f"You tried to add '{request.data}'")
-#         # Here, you can handle creation with DRF's default behavior or customize it
-#         return super().create(request, *args, **kwargs)
-
-#     def update(self, request, pk=None, *args, **kwargs):
-#         print(f"You tried to update entry {pk} with '{request.data}'")
-#         # Here, you can handle updates with DRF's default behavior or customize it
-#         return super().update(request, *args, **kwargs)
-
-class GoalViewSet(viewsets.ModelViewSet):
-    queryset = Goal.objects.all()
-    serializer_class = GoalSerializer
+class MeditationViewSet(viewsets.ModelViewSet):
+    queryset = Meditation.objects.all()
+    serializer_class = MeditationSerializer
 
     def create(self, request, *args, **kwargs):
-        print(f"Creating a new goal with data {request.data}")
+        print(f"Creating a new meditation with data {request.data}")
         return super().create(request, *args, **kwargs)
 
     def update(self, request, pk=None, *args, **kwargs):
-        print(f"Updating goal {pk} with data {request.data}")
+        print(f"Updating meditation {pk} with data {request.data}")
         return super().update(request, pk, *args, **kwargs)

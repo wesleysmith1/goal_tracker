@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Goal(models.Model):
+class Meditation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     SATISFACTION_CHOICES = (
         (1, 'Very Unsatisfied'),

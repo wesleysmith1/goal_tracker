@@ -18,13 +18,13 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from front_end.views import serve_react
 from django.conf import settings
-from front_end.views import serve_react, GoalViewSet
+from front_end.views import serve_react, MeditationViewSet
 from rest_framework.routers import DefaultRouter
 from django.conf.urls.static import static
 
 
 router = DefaultRouter()
-router.register(r'goals', GoalViewSet, basename='goals')
+router.register(r'meditations', MeditationViewSet, basename='meditations')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

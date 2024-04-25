@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { TextField, Button, MenuItem } from '@mui/material';
-import { addGoal } from '../reducers/goalsSlice';
+import { addMeditation } from '../reducers/meditationsSlice';
 
 // remember mood and satisfaction are synonomous 
 
@@ -23,14 +23,13 @@ function MeditationForm({ onClose }) {
     event.preventDefault();
     const { title, duration, satisfaction, notes } = formState;
     if (!title.trim()) return;
-    dispatch(addGoal({
+    dispatch(addMeditation({
       title,
       duration: parseInt(duration, 10) || 0,
       satisfaction,
       notes
     }));
     setFormState(initialState);
-    onClose();  // Close the modal after submitting the form
   };
 
   return (
@@ -53,7 +52,7 @@ function MeditationForm({ onClose }) {
           ))}
         </TextField>
         <TextField label="Notes" variant="outlined" value={formState.notes} onChange={handleChange('notes')} fullWidth margin="normal" multiline rows={4} />
-        <Button variant="contained" color="primary" type="submit">Add Goal</Button>
+        <Button variant="contained" color="primary" type="submit">Add Meditation</Button>
       </form>
     </div>
   );

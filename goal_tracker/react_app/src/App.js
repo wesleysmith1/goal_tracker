@@ -21,7 +21,7 @@ function App() {
             </Typography>
             <Button color="inherit" component={Link} to="/">Home</Button>
             <Button color="inherit" component={Link} to="/addmeditation">Add Meditation</Button>
-            <Button color="inherit" component={Link} to="/goals">Meditations</Button>
+            <Button color="inherit" component={Link} to="/meditations">Meditations</Button>
             <Button color="inherit" component={Link} to="/metrics">Metrics</Button>
             <Button color="inherit" component={Link} to="/aboutus">About Us</Button>
           </Toolbar>
@@ -30,7 +30,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/addmeditation" element={<AddMeditation />} />
-            <Route path="/goals" element={<Meditations />} />
+            <Route path="/meditations" element={<Meditations />} />
             <Route path="/metrics" element={<Metrics />} />
             <Route path="/aboutus" element={<AboutUs />} />
           </Routes>

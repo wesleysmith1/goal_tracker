@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 function ListItem({ item, onEdit, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editValues, setEditValues] = useState({
+    meditationId: item.id,
     title: item.title,
     duration: item.duration,
     notes: item.notes
