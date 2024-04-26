@@ -9,10 +9,6 @@ import LongestMeditationStreak from '../components/LongestStreakCalc';
 import AverageMeditationTime from '../components/AvgMeditationTimeCalc';
 import MeditationHeatmap from '../components/HeatMap';
 
-
-// ... other imports
-
-
 function Metrics() {
   const dispatch = useDispatch();
 
@@ -37,7 +33,7 @@ function Metrics() {
       
       <AvgMoodCalc />
       
-      <MeditationHeatmap />
+      {/* <MeditationHeatmap /> */}
     </div>
   );
 }
