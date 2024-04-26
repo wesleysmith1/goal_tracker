@@ -42,7 +42,6 @@ export const addMeditation = createAsyncThunk(
 export const updateMeditationAPI = createAsyncThunk(
     'meditations/updateMeditation',
     async ({ meditationId, updates }, { rejectWithValue }) => {
-        console.log(updates)
         try {
             const response = await fetch(`/api/meditations/${updates.meditationId}/`, {
                 method: 'PUT',

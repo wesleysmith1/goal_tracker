@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMeditations } from '../reducers/meditationsSlice';
+import { Button, CircularProgress, List, ListItem, ListItemText, Typography, Paper } from '@mui/material';
 
 const MeditationsHistory = () => {
     const dispatch = useDispatch();
@@ -12,24 +13,43 @@ const MeditationsHistory = () => {
         dispatch(fetchMeditations());
     }, [dispatch]);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
+    const handleRefresh = () => {
+        dispatch(fetchMeditations());
+    };
+
+    if (loading) return <CircularProgress />;
+    if (error) return (
+        <div>
+            <Typography color="error">Error: {error}</Typography>
+            <Button onClick={handleRefresh}>Retry</Button>
+        </div>
+    );
 
     return (
-        <div>
-            <h1>Your Meditation History</h1>
-            <ul>
+        <Paper style={{ padding: '20px', margin: '20px' }}>
+            <Typography variant="h4" gutterBottom>
+                Your Meditation History
+            </Typography>
+            <Button variant="contained" color="primary" onClick={handleRefresh}>
+                Refresh
+            </Button>
+            <List>
                 {meditations.map(meditation => (
-                    <li key={meditation.id}>
-                        <h2>{meditation.title}</h2>
-                        <p>Duration: {meditation.duration} minutes</p>
-                        <p>Created At: {new Date(meditation.created_at).toLocaleDateString()}</p>
-                        <p>Satisfaction: {['Not Effective', 'Slightly Effective', 'Moderately Effective', 'Effective', 'Highly Effective'][meditation.satisfaction - 1]}</p>
-                        <p>Notes: {meditation.notes || 'No notes provided'}</p>
-                    </li>
+                    <ListItem key={meditation.id} divider>
+                        <ListItemText
+                            primary={meditation.title}
+                            secondary={`Duration: ${meditation.duration} minutes - Created At: ${new Date(meditation.created_at).toLocaleDateString()}`}
+                        />
+                        <Typography variant="body2">
+                            Satisfaction: {['Not Effective', 'Slightly Effective', 'Moderately Effective', 'Effective', 'Highly Effective'][meditation.satisfaction - 1]}
+                        </Typography>
+                        <Typography variant="body2">
+                            Notes: {meditation.notes || 'No notes provided'}
+                        </Typography>
+                    </ListItem>
                 ))}
-            </ul>
-        </div>
+            </List>
+        </Paper>
     );
 };
 

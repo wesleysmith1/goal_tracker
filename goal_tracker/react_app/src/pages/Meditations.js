@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal, Box } from '@mui/material';
-import MeditationsHistory from '../components/MeditationsHistory';
+import MeditationsList from '../components/MeditationsList';
 import MeditationMinutesCalc from '../components/MeditationMinutesCalc';
 import MeditationStreakCalc from '../components/MeditationStreakCalc';
 import AddMeditation from './AddMeditation';
@@ -38,7 +38,7 @@ function Meditations() {
       </Modal>
       <MeditationMinutesCalc />
       <MeditationStreakCalc />
-      <MeditationsHistory />
+      <MeditationsList />
     </div>
   );
 }

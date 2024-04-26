@@ -1,10 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Paper, Typography } from '@mui/material';
-import { data } from './DummyData'; // Import data from DummyData.js
 
 // Component to calculate total minutes meditated
 const TotalMeditationMinutes = ({ meditationData }) => {
-  const totalMinutes = meditationData.reduce((total, current) => total + current.minutes, 0);
+  const totalMinutes = meditationData.reduce((total, current) => total + current.duration, 0);
 
   return (
     <Paper style={{ padding: '20px', margin: '20px', textAlign: 'center' }}>
@@ -19,14 +19,17 @@ const TotalMeditationMinutes = ({ meditationData }) => {
       </Typography>
     </Paper>
   );
-}
+};
 
 const MeditationStats = () => {
+  // Accessing the meditations list from Redux state
+  const meditations = useSelector(state => state.meditations.meditationsList);
+
   return (
     <div>
-      <TotalMeditationMinutes meditationData={data} />
+      <TotalMeditationMinutes meditationData={meditations} />
     </div>
   );
-}
+};
 
 export default MeditationStats;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, Card, CardActions, CardContent, IconButton } from '@mui/material';
+import { TextField, Card, CardActions, CardContent, IconButton, MenuItem } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -10,16 +10,27 @@ function ListItem({ item, onEdit, onDelete }) {
     meditationId: item.id,
     title: item.title,
     duration: item.duration,
+    satisfaction: item.satisfaction || 3,  // Default to 3 if undefined
     notes: item.notes
   });
 
-  const handleEditChange = (field, value) => {
-    setEditValues(prev => ({ ...prev, [field]: value }));
+  const handleEditChange = (field) => (event) => {
+    const newValue = event.target.value;
+    setEditValues(prev => ({ ...prev, [field]: newValue }));
   };
 
   const handleSave = () => {
-    onEdit(editValues); // Dispatch the update action
-    setIsEditing(false); // Exit editing mode
+    onEdit(editValues);
+    setIsEditing(false);
+  };
+
+  // Helper to convert satisfaction number to emoji label
+  const satisfactionToLabel = {
+    1: 'Very Unsatisfied 😟',
+    2: 'Unsatisfied 😕',
+    3: 'Neutral 😐',
+    4: 'Satisfied 😊',
+    5: 'Very Satisfied 😁'
   };
 
   return (
@@ -31,7 +42,7 @@ function ListItem({ item, onEdit, onDelete }) {
             fullWidth
             variant="outlined"
             value={editValues.title}
-            onChange={(e) => handleEditChange('title', e.target.value)}
+            onChange={handleEditChange('title')}
             margin="normal"
           />
           <TextField
@@ -40,9 +51,23 @@ function ListItem({ item, onEdit, onDelete }) {
             type="number"
             variant="outlined"
             value={editValues.duration}
-            onChange={(e) => handleEditChange('duration', e.target.value)}
+            onChange={handleEditChange('duration')}
             margin="normal"
           />
+          <TextField
+            label="Satisfaction"
+            select
+            value={editValues.satisfaction}
+            onChange={handleEditChange('satisfaction')}
+            fullWidth
+            margin="normal"
+          >
+            {Object.entries(satisfactionToLabel).map(([value, label]) => (
+              <MenuItem key={value} value={value}>
+                {label}
+              </MenuItem>
+            ))}
+          </TextField>
           <TextField
             label="Notes"
             fullWidth
@@ -50,7 +75,7 @@ function ListItem({ item, onEdit, onDelete }) {
             rows={3}
             variant="outlined"
             value={editValues.notes}
-            onChange={(e) => handleEditChange('notes', e.target.value)}
+            onChange={handleEditChange('notes')}
             margin="normal"
           />
         </CardContent>
@@ -58,6 +83,7 @@ function ListItem({ item, onEdit, onDelete }) {
         <CardContent>
           <h3>{item.title}</h3>
           <p>Duration: {item.duration} minutes</p>
+          <p>Satisfaction: {satisfactionToLabel[item.satisfaction]}</p>
           <p>Notes: {item.notes}</p>
         </CardContent>
       )}

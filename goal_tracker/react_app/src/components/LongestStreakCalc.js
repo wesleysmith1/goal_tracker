@@ -1,12 +1,15 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Paper, Typography } from '@mui/material';
 import moment from 'moment';
-import { data } from './DummyData';  // Import data from DummyData.js
 
 const LongestMeditationStreak = () => {
-  const sortedData = data.map(d => ({
-    ...d,
-    date: moment(d.timestamp).startOf('day')
+  // Access the meditations list from Redux state
+  const meditations = useSelector(state => state.meditations.meditationsList);
+
+  const sortedData = meditations.map(meditation => ({
+    ...meditation,
+    date: moment(meditation.timestamp).startOf('day')
   })).sort((a, b) => a.date.diff(b.date));
 
   let currentStreak = 0;

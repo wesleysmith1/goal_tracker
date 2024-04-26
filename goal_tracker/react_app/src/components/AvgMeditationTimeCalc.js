@@ -1,10 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Paper, Typography } from '@mui/material';
-import { data } from './DummyData';  // Import data from DummyData.js
 
 const AverageMeditationTime = () => {
-  const totalMinutes = data.reduce((total, current) => total + current.minutes, 0);
-  const averageMinutes = totalMinutes / data.length;
+  // Access the meditations list from Redux state
+  const meditations = useSelector(state => state.meditations.meditationsList);
+
+  // Calculate the total minutes and average minutes if meditations are available
+  const totalMinutes = meditations.reduce((total, current) => total + current.duration, 0);
+  const averageMinutes = meditations.length > 0 ? totalMinutes / meditations.length : 0;
 
   return (
     <Paper style={{ padding: '20px', margin: '20px', textAlign: 'center' }}>
