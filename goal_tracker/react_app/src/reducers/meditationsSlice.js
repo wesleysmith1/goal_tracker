@@ -1,94 +1,102 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-// Async thunk for fetching meditations from the server
-export const fetchMeditations = createAsyncThunk('meditations/fetchMeditations', async (_, { rejectWithValue }) => {
-  try {
-    const response = await fetch('/api/meditations/', {
-      headers: {
-        'Accept': 'application/json'
+// Fetching meditations with authentication
+export const fetchMeditations = createAsyncThunk(
+  'meditations/fetchMeditations', 
+  async (_, { getState, rejectWithValue }) => {
+    const token = getState().auth.token; // Assuming your auth state has the token
+    try {
+      const response = await fetch('/api/meditations/', {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${token}` // Securely passing the token
+        }
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
-    });
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+      return await response.json();
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
-    return await response.json();
-  } catch (error) {
-    return rejectWithValue(error.message);
   }
-});
+);
 
-// Async thunk for adding a new meditation
+// Adding a new meditation with authentication
 export const addMeditation = createAsyncThunk(
-    'meditations/addMeditation',
-    async (meditationData, { rejectWithValue }) => {
-        try {
-            const response = await fetch('/api/meditations/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(meditationData)
-            });
-            if (!response.ok) throw new Error('Network response was not ok');
-            return await response.json();
-        } catch (error) {
-            return rejectWithValue(error.message);
-        }
+  'meditations/addMeditation',
+  async (meditationData, { getState, rejectWithValue }) => {
+    const token = getState().auth.token;
+    try {
+      const response = await fetch('/api/meditations/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(meditationData)
+      });
+      if (!response.ok) throw new Error('Network response was not ok');
+      return await response.json();
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
+  }
 );
 
-// Async thunk for updating a mediation
+// Updating a meditation
 export const updateMeditationAPI = createAsyncThunk(
-    'meditations/updateMeditation',
-    async ({ meditationId, updates }, { rejectWithValue }) => {
-        try {
-            const response = await fetch(`/api/meditations/${updates.meditationId}/`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(updates)
-            });
-            if (!response.ok) throw new Error('Network response was not ok');
-            return await response.json();
-        } catch (error) {
-            return rejectWithValue(error.message);
-        }
+  'meditations/updateMeditation',
+  async ({ meditationId, updates }, { getState, rejectWithValue }) => {
+    const token = getState().auth.token;
+    try {
+      const response = await fetch(`/api/meditations/${meditationId}/`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(updates)
+      });
+      if (!response.ok) throw new Error('Network response was not ok');
+      return await response.json();
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
+  }
 );
 
-// Async thunk for deleting a meditation
+// Deleting a meditation
 export const deleteMeditation = createAsyncThunk(
-    'meditations/deleteMeditation',
-    async (meditationId, { rejectWithValue }) => {
-        try {
-            const response = await fetch(`/api/meditations/${meditationId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            if (!response.ok) throw new Error('Network response was not ok');
-            return meditationId;
-        } catch (error) {
-            return rejectWithValue(error.message);
+  'meditations/deleteMeditation',
+  async (meditationId, { getState, rejectWithValue }) => {
+    const token = getState().auth.token;
+    try {
+      const response = await fetch(`/api/meditations/${meditationId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         }
+      });
+      if (!response.ok) throw new Error('Network response was not ok');
+      return meditationId;
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
+  }
 );
 
-// Initial state
-const initialState = {
-  meditationsList: [],
-  loading: false,
-  error: null,
-};
-
-// Slice definition
+// Meditations slice definition
 const meditationsSlice = createSlice({
   name: 'meditations',
-  initialState,
+  initialState: {
+    meditationsList: [],
+    loading: false,
+    error: null,
+  },
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -119,10 +127,7 @@ const meditationsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(deleteMeditation.fulfilled, (state, action) => {
-        const index = state.meditationsList.findIndex(meditation => meditation.id === action.payload);
-        if (index !== -1) {
-          state.meditationsList.splice(index, 1);
-        }
+        state.meditationsList = state.meditationsList.filter(meditation => meditation.id !== action.payload);
       })
       .addCase(deleteMeditation.rejected, (state, action) => {
         state.error = action.error.message;

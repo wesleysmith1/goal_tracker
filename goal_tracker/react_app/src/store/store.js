@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import meditationsReducer from '../reducers/meditationsSlice';
-// Other reducers
+import authReducer from '../reducers/authSlice';
 
 const store = configureStore({
   reducer: {
+    auth: authReducer,
     meditations: meditationsReducer,
-    // Add other slices as needed
   },
 });
 

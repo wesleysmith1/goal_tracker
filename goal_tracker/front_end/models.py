@@ -3,6 +3,7 @@ from django.utils import timezone
 
 # Create your models here.
 class Meditation(models.Model):
+    user_id = models.CharField(max_length=200)
     created_at = models.DateTimeField(default=timezone.now)
     SATISFACTION_CHOICES = (
         (1, 'Very Unsatisfied'),
