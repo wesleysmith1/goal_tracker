@@ -3,14 +3,13 @@ import { useDispatch } from 'react-redux';
 import { TextField, Button, MenuItem } from '@mui/material';
 import { addMeditation } from '../reducers/meditationsSlice';
 
-// remember mood and satisfaction are synonomous 
-
 function MeditationForm({ onClose }) {
   const initialState = {
     title: '',
     duration: '',
-    satisfaction: 3,
-    notes: ''
+    satisfaction: 3,  // Default satisfaction level
+    notes: '',
+    created_at: new Date().toISOString().slice(0, 10)  // Default to today's date
   };
   const [formState, setFormState] = useState(initialState);
   const dispatch = useDispatch();
@@ -21,13 +20,14 @@ function MeditationForm({ onClose }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { title, duration, satisfaction, notes } = formState;
+    const { title, duration, satisfaction, notes, created_at } = formState;
     if (!title.trim()) return;
     dispatch(addMeditation({
       title,
       duration: parseInt(duration, 10) || 0,
       satisfaction,
-      notes
+      notes,
+      created_at
     }));
     setFormState(initialState);
   };
@@ -52,6 +52,18 @@ function MeditationForm({ onClose }) {
           ))}
         </TextField>
         <TextField label="Notes" variant="outlined" value={formState.notes} onChange={handleChange('notes')} fullWidth margin="normal" multiline rows={4} />
+        <TextField
+          label="Date"
+          variant="outlined"
+          type="date"
+          value={formState.created_at}
+          onChange={handleChange('created_at')}
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,  // Ensures the label does not overlap the text in the input
+          }}
+        />
         <Button variant="contained" color="primary" type="submit">Add Meditation</Button>
       </form>
     </div>
