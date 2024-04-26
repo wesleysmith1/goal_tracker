@@ -2,13 +2,12 @@ import React from 'react';
 import MeditationsList from '../components/MeditationsList';
 import MeditationForm from '../components/MeditationForm';
 
-function AddGoal() {
+function AddMeditation({ onClose }) {
   return (
     <div>
-      <MeditationForm />
-      <MeditationsList />
+      <MeditationForm onClose={onClose} />
     </div>
   );
 }
 
-export default AddGoal;
+export default AddMeditation;

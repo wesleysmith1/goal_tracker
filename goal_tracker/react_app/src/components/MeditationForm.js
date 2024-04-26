@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { TextField, Button, MenuItem } from '@mui/material';
-import { addGoal } from '../reducers/goalsSlice';
+import { addMeditation } from '../reducers/meditationsSlice';
 
-function MeditationForm() {
+// remember mood and satisfaction are synonomous 
+
+function MeditationForm({ onClose }) {
   const initialState = {
     title: '',
     duration: '',
-    satisfaction: 3, // Default satisfaction level
+    satisfaction: 3,
     notes: ''
   };
   const [formState, setFormState] = useState(initialState);
@@ -21,7 +23,7 @@ function MeditationForm() {
     event.preventDefault();
     const { title, duration, satisfaction, notes } = formState;
     if (!title.trim()) return;
-    dispatch(addGoal({
+    dispatch(addMeditation({
       title,
       duration: parseInt(duration, 10) || 0,
       satisfaction,
@@ -36,13 +38,13 @@ function MeditationForm() {
       <form onSubmit={handleSubmit}>
         <TextField label="Title" variant="outlined" value={formState.title} onChange={handleChange('title')} fullWidth margin="normal" />
         <TextField label="Duration (minutes)" variant="outlined" type="number" value={formState.duration} onChange={handleChange('duration')} fullWidth margin="normal" />
-        <TextField label="Satisfaction" select value={formState.satisfaction} onChange={handleChange('satisfaction')} fullWidth margin="normal">
+        <TextField label="Mood" select value={formState.satisfaction} onChange={handleChange('satisfaction')} fullWidth margin="normal">
           {[
-            { value: 1, label: 'Not Effective' },
-            { value: 2, label: 'Slightly Effective' },
-            { value: 3, label: 'Moderately Effective' },
-            { value: 4, label: 'Effective' },
-            { value: 5, label: 'Highly Effective' }
+            { value: 1, label: '😟' },
+            { value: 2, label: '😕' },
+            { value: 3, label: '😐' },
+            { value: 4, label: '😊' },
+            { value: 5, label: '😁' }
           ].map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
@@ -50,7 +52,7 @@ function MeditationForm() {
           ))}
         </TextField>
         <TextField label="Notes" variant="outlined" value={formState.notes} onChange={handleChange('notes')} fullWidth margin="normal" multiline rows={4} />
-        <Button variant="contained" color="primary" type="submit">Add Goal</Button>
+        <Button variant="contained" color="primary" type="submit">Add Meditation</Button>
       </form>
     </div>
   );

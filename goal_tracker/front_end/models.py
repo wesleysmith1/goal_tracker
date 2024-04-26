@@ -1,8 +1,9 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
-class Goal(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
+class Meditation(models.Model):
+    created_at = models.DateTimeField(default=timezone.now)
     SATISFACTION_CHOICES = (
         (1, 'Very Unsatisfied'),
         (2, 'Unsatisfied'),

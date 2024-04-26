@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import goalsReducer from '../reducers/goalsSlice';
+import meditationsReducer from '../reducers/meditationsSlice';
 // Other reducers
 
 const store = configureStore({
   reducer: {
-    goals: goalsReducer,
+    meditations: meditationsReducer,
     // Add other slices as needed
   },
 });

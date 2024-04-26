@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import Goal
+from .models import Meditation
 
-class GoalSerializer(serializers.ModelSerializer):
+class MeditationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Goal
+        model = Meditation
         fields = ['id', 'title', 'duration', 'created_at', 'notes', 'satisfaction']

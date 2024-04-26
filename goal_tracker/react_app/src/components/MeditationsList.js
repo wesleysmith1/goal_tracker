@@ -2,24 +2,24 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { List, ListItem as MuiListItem } from '@mui/material';
 import ListItem from './ListItem';
-import { fetchGoals, updateGoalAPI, deleteGoal } from '../reducers/goalsSlice';
+import { fetchMeditations, updateMeditationAPI, deleteMeditation } from '../reducers/meditationsSlice';
 
 function MeditationsList() {
-  const goalsList = useSelector(state => state.goals.goalsList);
+  const meditationsList = useSelector(state => state.meditations.meditationsList);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchGoals());
+    dispatch(fetchMeditations());
   }, [dispatch]);
 
   return (
     <List>
-      {goalsList.map(goal => (
-        <MuiListItem key={goal.id}>
+      {meditationsList.map(meditation => (
+        <MuiListItem key={meditation.id}>
           <ListItem
-            item={goal}
-            onEdit={newValue => dispatch(updateGoalAPI({ goalId: goal.id, updates: newValue }))}
-            onDelete={() => dispatch(deleteGoal(goal.id))}
+            item={meditation}
+            onEdit={newValue => dispatch(updateMeditationAPI({ meditationId: meditation.id, updates: newValue }))}
+            onDelete={() => dispatch(deleteMeditation(meditation.id))}
           />
         </MuiListItem>
       ))}
