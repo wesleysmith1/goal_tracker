@@ -11,7 +11,8 @@ function ListItem({ item, onEdit, onDelete }) {
     title: item.title,
     duration: item.duration,
     satisfaction: item.satisfaction || 3,  // Default to 3 if undefined
-    notes: item.notes
+    notes: item.notes,
+    created_at: item.created_at  // Include created_at date
   });
 
   const handleEditChange = (field) => (event) => {
@@ -78,6 +79,15 @@ function ListItem({ item, onEdit, onDelete }) {
             onChange={handleEditChange('notes')}
             margin="normal"
           />
+          <TextField
+            label="Created Date"
+            fullWidth
+            type="date"
+            variant="outlined"
+            value={editValues.created_at.slice(0, 10)} // Ensure date format compatibility
+            onChange={handleEditChange('created_at')}
+            margin="normal"
+          />
         </CardContent>
       ) : (
         <CardContent>
@@ -85,6 +95,7 @@ function ListItem({ item, onEdit, onDelete }) {
           <p>Duration: {item.duration} minutes</p>
           <p>Satisfaction: {satisfactionToLabel[item.satisfaction]}</p>
           <p>Notes: {item.notes}</p>
+          <p>Date: {new Date(item.created_at).toLocaleDateString()}</p>
         </CardContent>
       )}
       <CardActions>
